@@ -30,18 +30,18 @@ This is how the data is distributed:
 
 As it can be seen, the data is hugely imbalanced. Hence I included a code snippet to randomly select a defined number of samples per language. Also, to deal with this further, I provided the loss function with custom class weights to account for the data imbalance problem. I tried 2 versions of custom weights:
 1. The inverse of the class's proportion in the data set.
-2. sklearn's [compute_class_weight](https://scikit-learn.org/stable/modules/generated/sklearn.utils.class_weight.compute_class_weight.html), which estimate class weights for unbalanced datasets, using the formula:  
+2. sklearn's [compute_class_weight](https://scikit-learn.org/stable/modules/generated/sklearn.utils.class_weight.compute_class_weight.html), which estimates class weights for unbalanced datasets, using the formula:  
 `number_of_samples / (number_of_classes * bincount(data))`.  
 The two methods ended up with pretty much similar results.
 
-_<sup>*</sup> originally the dataset had contained 18 files, but I deleted Scottish and Irish, since they're actually English, and we have enough English names in the dataset._
+_<sup>*</sup> originally the dataset had had 18 files, but I deleted Scottish and Irish, since they're actually English, and we have enough English names in the dataset._
 
-## Data split
-I split the data to 80% training and 20% test sets.
+## Data Splitting
+I split the data to 80% training and 20% test.
 
 ## Encoding
 To encode the labels from strings to numbers, I used [sklearn's LabelEncoder](https://scikit-learn.org/stable/modules/generated/sklearn.preprocessing.LabelEncoder.html), which creates a 2-way mapping between labels and encodings.
-To vectorize and encode the name characters, I first normalized the characters to their ascii english characters using the library [unidecode](https://pypi.org/project/Unidecode/). For example, the name "François" becomes "Francois". Although this might make it harder for the network (becaues it fades away critical hints to the language of origin), it makes it more generic and robust. After normalization, I used PyTorch's one_hot function to perform a on-hot encoding on the characters. For example, the name **"slim shady"** is converted to:
+To vectorize and encode the name characters, I first normalized the characters to their ascii English characters using the library [unidecode](https://pypi.org/project/Unidecode/). For example, the name "François" becomes "Francois". Although this might make it harder for the network (because it fades away critical hints to the language of origin), it makes it more generic and robust. After normalization, I used PyTorch's [one_hot](https://pytorch.org/docs/stable/generated/torch.nn.functional.one_hot.html#torch.nn.functional.one_hot) function to perform a one-hot encoding on the characters. For example, the name **"slim shady"** is converted to:
 
 |' '|a  |b  |c  |d  |e  |f  |g  |h  |i  |j  |k  |l  |m  |n  |o  |p  |q  |r  |s  |t  |u  |v  |w  |x  |y  |z  |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -58,7 +58,7 @@ To vectorize and encode the name characters, I first normalized the characters t
 
 
 ## Model
-I tried 4 versions RNN:
+I tried 4 versions of RNN:
 1. Regular Vanilla RNN from PyTorch.
 2. Simple custom Vanilla RNN.
 3. LSTM.
@@ -116,7 +116,7 @@ Training Time: 0:30:09.353618
 ```
 ![gru training](https://user-images.githubusercontent.com/78589884/128221368-b753cd28-e299-44ee-869c-c0b1904a63d5.png)
 
-As can be seen from the plot, the network keeps learning until reaching a loss of less than 0.60 and shows an intent to start converging (I didn't let it continue for lack of time and resources).
+As can be seen from the plot, the network keeps learning until reaching a loss of less than 0.60 and shows an intent to start converging (I stopped it for the lack of time and resources).
 
 The plots for the other networks can be seen in the notebook mentioned above. GRU had the best results, however.
 
@@ -145,6 +145,7 @@ In addition, I printed some random predictions that the GRU network made on the 
 |Mifsud     | Arabic    | Arabic   | CORRECT  |
 
 Finally, following is a confusion matrix of the **validation set** (opposed to the referenced GitHub repo which drew a confusion matrix of the training set, which I think is misleading).
+
 ![confusion matrix](https://user-images.githubusercontent.com/78589884/128222646-d8ee66cc-107b-4d41-8c0c-ff650486b323.png)
 
 As can be seen in the confusion matrix, most erros occur between "close" languages, such as Chinese and Korean, or Spanish and Italian.
