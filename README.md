@@ -1,5 +1,7 @@
 # Name Classification
 
+![model-in-action-recording](https://user-images.githubusercontent.com/78589884/128915771-16de63f8-dfa2-44df-8c52-e139a0ca900a.gif)
+
 ## Introduction
 
 In this project I attempt to predict the language of origin of given human names, all written in English characters.
@@ -34,7 +36,7 @@ As it can be seen, the data is hugely imbalanced. Hence I included a code snippe
 `number_of_samples / (number_of_classes * bincount(data))`.  
 The two methods ended up with pretty much similar results.
 
-_<sup>*</sup> originally the dataset had had 18 files, but I deleted Scottish and Irish, since they're actually English, and we have enough English names in the dataset._
+_<sup>*</sup> Originally the dataset had had 18 files, but I deleted Scottish and Irish, since they're actually English, and we have enough English names in the dataset. Also, read below about how I expanded the dataset even further, by adding Hebrew names._
 
 ## Data Splitting
 I split the data to 80% training and 20% test.
@@ -149,6 +151,11 @@ Finally, following is a confusion matrix of the **validation set** (opposed to t
 ![confusion matrix](https://user-images.githubusercontent.com/78589884/128222646-d8ee66cc-107b-4d41-8c0c-ff650486b323.png)
 
 As can be seen in the confusion matrix, most erros occur between "close" languages, such as Chinese and Korean, or Spanish and Italian.
+
+## Model in Action
+Since the database doesn't include names in Hebrew, I decided to use [facebook-scraper](https://github.com/kevinzg/facebook-scraper) to scrape some Hebrew user names from Hebrew pages on Facebook. I tried to choose pages that are very popular, but at the same time ones that I think are highly likely to have nearly all Jewish commenters. I scraped the available comments, parsed the user names, and took the first name of the user. The pages that I used were ["AcademyOfTheHebrewLanguage"](https://www.facebook.com/AcademyOfTheHebrewLanguage/) and ["nasdailyhebrew"](https://www.facebook.com/nasdailyhebrew). I managed to collect thousands of names (5-6K), but only 1750 of them are distinct (first name wise), so that's what I used for the final model, which you can try by yourself [in this link](https://name-classification.herokuapp.com/) (I used Flask to deploy the project to Heroku<sup>*</sup>, and then wrote a simple HTML page to communicate with the model on the server and fetch the result using Ajax).
+
+_<sup>*</sup>I followed [this tutorial](https://www.youtube.com/watch?v=bA7-DEtYCNM&list=LL&index=10) for the Heroku-Flask deployment._
 
 ## Conclusion
 In conclusion, I have successfully created an RNN network which classifies human names to their language of origin, with satisfying low loss and high accuracy.
