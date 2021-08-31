@@ -161,7 +161,7 @@ I used Flask to deploy the project to Heroku<sup>*</sup>, and then wrote a simpl
 _<sup>*</sup>I followed [this tutorial](https://www.youtube.com/watch?v=bA7-DEtYCNM&list=LL&index=10) for the Heroku-Flask deployment._
 
 ## Model in Action
-You can try the model by yourself [in this link](https://name-classification.herokuapp.com/).
+You can try the model by yourself [in this link](https://name-classification.herokuapp.com/) (first request will take about a minute to wake up the server).
 
 ## Conclusion
 In conclusion, I have successfully created an RNN network which classifies human names to their language of origin, with satisfying low loss and high accuracy.
