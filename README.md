@@ -5,7 +5,7 @@
 ## Introduction
 
 In this project I attempt to predict the language of origin of given human names, all written in English characters.
-The original dataset is taken from [this GitHub repository](https://github.com/spro/practical-pytorch/tree/master/data/names) (I made a few modifications on it), which tackles the same problem. Since I think there are some issues with the said repo, I decided to implement the project on my own from scratch. Additionally, I went a step further and deployed my model to the web using Flask, so it can be accessed and tested online by everyone.
+The original dataset is taken from [this GitHub repository](https://github.com/spro/practical-pytorch/tree/master/data/names) (I made a few modifications on it), which tackles the same problem. Since I think there are some issues with the said repo, I decided to implement the project on my own from scratch. Additionally, I went a step further and deployed my model to the web using Flask, so it can be accessed and tested online by everyone (link at the bottom).
 Here I present a quick overview of the project. For a complete walkthrough, including the code, please head to my notebook [name_classification_rnn.ipynb ](https://github.com/masalha-alaa/name-classification-pytorch/blob/master/name_classification_rnn.ipynb).
 
 ## Dataset
